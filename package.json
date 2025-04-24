@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npm run typegen",
     "dev": "next dev --turbopack",
+    "prebuild": "npm run typegen",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typegen": "sanity schema extract --path=src/types/extract.json && sanity typegen generate"
   },
   "dependencies": {
     "@sanity/icons": "^3.7.0",

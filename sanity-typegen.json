@@ -1,0 +1,5 @@
+{
+  "path": "./src/**/*.{ts,tsx,js,jsx}",
+  "schema": "./src/types/extract.json",
+  "generates": "./src/types/types.ts"
+}
