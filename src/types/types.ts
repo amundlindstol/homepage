@@ -68,132 +68,23 @@ export type Geopoint = {
 	alt?: number
 }
 
-export type Post = {
+export type Skill = {
 	_id: string
-	_type: 'post'
+	_type: 'skill'
 	_createdAt: string
 	_updatedAt: string
 	_rev: string
 	title?: string
+	category?:
+		| 'Language'
+		| 'Framework'
+		| 'Database'
+		| 'Infrastructure'
+		| 'Platform'
+		| 'Tools'
+		| 'Methodology and process'
+		| 'Other'
 	slug?: Slug
-	author?: {
-		_ref: string
-		_type: 'reference'
-		_weak?: boolean
-		[internalGroqTypeReferenceTo]?: 'author'
-	}
-	mainImage?: {
-		asset?: {
-			_ref: string
-			_type: 'reference'
-			_weak?: boolean
-			[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-		}
-		media?: unknown
-		hotspot?: SanityImageHotspot
-		crop?: SanityImageCrop
-		alt?: string
-		_type: 'image'
-	}
-	categories?: Array<{
-		_ref: string
-		_type: 'reference'
-		_weak?: boolean
-		_key: string
-		[internalGroqTypeReferenceTo]?: 'category'
-	}>
-	publishedAt?: string
-	body?: Array<
-		| {
-				children?: Array<{
-					marks?: Array<string>
-					text?: string
-					_type: 'span'
-					_key: string
-				}>
-				style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote'
-				listItem?: 'bullet'
-				markDefs?: Array<{
-					href?: string
-					_type: 'link'
-					_key: string
-				}>
-				level?: number
-				_type: 'block'
-				_key: string
-		  }
-		| {
-				asset?: {
-					_ref: string
-					_type: 'reference'
-					_weak?: boolean
-					[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-				}
-				media?: unknown
-				hotspot?: SanityImageHotspot
-				crop?: SanityImageCrop
-				alt?: string
-				_type: 'image'
-				_key: string
-		  }
-	>
-}
-
-export type Author = {
-	_id: string
-	_type: 'author'
-	_createdAt: string
-	_updatedAt: string
-	_rev: string
-	name?: string
-	slug?: Slug
-	image?: {
-		asset?: {
-			_ref: string
-			_type: 'reference'
-			_weak?: boolean
-			[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-		}
-		media?: unknown
-		hotspot?: SanityImageHotspot
-		crop?: SanityImageCrop
-		_type: 'image'
-	}
-	bio?: Array<{
-		children?: Array<{
-			marks?: Array<string>
-			text?: string
-			_type: 'span'
-			_key: string
-		}>
-		style?: 'normal'
-		listItem?: never
-		markDefs?: Array<{
-			href?: string
-			_type: 'link'
-			_key: string
-		}>
-		level?: number
-		_type: 'block'
-		_key: string
-	}>
-}
-
-export type Category = {
-	_id: string
-	_type: 'category'
-	_createdAt: string
-	_updatedAt: string
-	_rev: string
-	title?: string
-	slug?: Slug
-	description?: string
-}
-
-export type Slug = {
-	_type: 'slug'
-	current?: string
-	source?: string
 }
 
 export type BlockContent = Array<
@@ -230,6 +121,72 @@ export type BlockContent = Array<
 			_key: string
 	  }
 >
+
+export type TranslationMetadata = {
+	_id: string
+	_type: 'translation.metadata'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	translations?: Array<
+		{
+			_key: string
+		} & InternationalizedArrayReferenceValue
+	>
+	schemaTypes?: Array<string>
+}
+
+export type InternationalizedArrayReferenceValue = {
+	_type: 'internationalizedArrayReferenceValue'
+	value?: {
+		_ref: string
+		_type: 'reference'
+		_weak?: boolean
+		[internalGroqTypeReferenceTo]?: 'projectExperience'
+	}
+}
+
+export type ProjectExperience = {
+	_id: string
+	_type: 'projectExperience'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	title?: string
+	customer?: string
+	slug?: Slug
+	image?: {
+		asset?: {
+			_ref: string
+			_type: 'reference'
+			_weak?: boolean
+			[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+		}
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	customerDescription?: BlockContent
+	projectDescription?: BlockContent
+	projectRole?: Array<{
+		title?: string
+		description?: BlockContent
+		_type: 'role'
+		_key: string
+	}>
+	skills?: Array<{
+		_ref: string
+		_type: 'reference'
+		_weak?: boolean
+		_key: string
+		[internalGroqTypeReferenceTo]?: 'skill'
+	}>
+	dateFrom?: string
+	dateTo?: string
+	language?: string
+}
 
 export type SanityImageCrop = {
 	_type: 'sanity.imageCrop'
@@ -288,26 +245,40 @@ export type SanityImageMetadata = {
 	isOpaque?: boolean
 }
 
+export type Slug = {
+	_type: 'slug'
+	current?: string
+	source?: string
+}
+
+export type InternationalizedArrayReference = Array<
+	{
+		_key: string
+	} & InternationalizedArrayReferenceValue
+>
+
 export type AllSanitySchemaTypes =
 	| SanityImagePaletteSwatch
 	| SanityImagePalette
 	| SanityImageDimensions
 	| SanityFileAsset
 	| Geopoint
-	| Post
-	| Author
-	| Category
-	| Slug
+	| Skill
 	| BlockContent
+	| TranslationMetadata
+	| InternationalizedArrayReferenceValue
+	| ProjectExperience
 	| SanityImageCrop
 	| SanityImageHotspot
 	| SanityImageAsset
 	| SanityAssetSourceData
 	| SanityImageMetadata
+	| Slug
+	| InternationalizedArrayReference
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/lib/sanity.query.ts
 // Variable: postQuery
-// Query: *[_type == "post"] {  _id,  _createdAt,  title,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  content,}
+// Query: *[_type == "projectExperience"] {  _id,  _createdAt,  title,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  content,}
 export type PostQueryResult = Array<{
 	_id: string
 	_createdAt: string
@@ -318,17 +289,13 @@ export type PostQueryResult = Array<{
 }>
 // Variable: singlePostQuery
 // Query: *[_type == "post" && slug.current == $slug][0] {  title,  content,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },}
-export type SinglePostQueryResult = {
-	title: string | null
-	content: null
-	cover: null
-} | null
+export type SinglePostQueryResult = null
 
 // Query TypeMap
 import '@sanity/client'
 declare module '@sanity/client' {
 	interface SanityQueries {
-		'*[_type == "post"] {\n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  content,\n}': PostQueryResult
+		'*[_type == "projectExperience"] {\n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  content,\n}': PostQueryResult
 		'*[_type == "post" && slug.current == $slug][0] {\n  title,\n  content,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n}': SinglePostQueryResult
 	}
 }

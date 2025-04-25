@@ -1,25 +1,24 @@
 import { sanityFetch } from '@/lib/sanity.client'
-import { postQuery } from '@/lib/sanity.query'
-import { Post } from '@/types/types'
+import { projectExperienceQuery } from '@/lib/sanity.query'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ProjectExperience } from '@/types/types'
 
 export default async function Page() {
-	// Revalidate document when "post" is changed
-	const posts: Post[] = await sanityFetch({
-		query: postQuery,
-		tags: ['post'],
+	const projectExperiences: ProjectExperience[] = await sanityFetch({
+		query: projectExperienceQuery,
+		tags: ['projectExperience'],
 	})
 
 	return (
 		<section className="mx-auto mt-40 grid max-w-5xl grid-cols-1 p-6 md:grid-cols-2">
-			<p>youyo</p>
-			{posts.map((post) => (
+			<p>hello</p>
+			{projectExperiences.map((post) => (
 				<article className="m-6" key={post._id}>
-					<Link href={`/blog/${post.slug}`}>
+					<Link href={`/blog/${post.slug?.current}`}>
 						<Image
-							src={'/post.cover.image'}
-							alt={'/post.cover.alt'}
+							src={'/placeholder.svg'}
+							alt={'some image'}
 							width={600}
 							height={600}
 							className="aspect-video rounded-lg object-cover"

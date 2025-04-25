@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity'
 
 // Query schema datasets
-export const postQuery = groq`*[_type == "post"] {
+export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
   _id,
   _createdAt,
   title,
@@ -14,7 +14,7 @@ export const postQuery = groq`*[_type == "post"] {
   content,
 }`
 
-export const singlePostQuery = groq`*[_type == "post" && slug.current == $slug][0] {
+export const singleProjectExperienceQuery = groq`*[_type == "post" && slug.current == $slug][0] {
   title,
   content,
   cover {

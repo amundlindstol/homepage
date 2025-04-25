@@ -12,6 +12,7 @@ import { structureTool } from 'sanity/structure'
 import { apiVersion, dataset, projectId } from '@/lib/sanity.api'
 import { schema } from '@/sanity/schemaTypes'
 import { structure } from '@/sanity/structure'
+import { documentInternationalization } from '@sanity/document-internationalization'
 
 export default defineConfig({
 	basePath: '/studio',
@@ -24,5 +25,13 @@ export default defineConfig({
 		// Vision is for querying with GROQ from inside the Studio
 		// https://www.sanity.io/docs/the-vision-plugin
 		visionTool({ defaultApiVersion: apiVersion }),
+		documentInternationalization({
+			// Required configuration
+			supportedLanguages: [
+				{ id: 'no', title: 'Norwegian' },
+				{ id: 'en', title: 'English' },
+			],
+			schemaTypes: ['projectExperience'],
+		}),
 	],
 })
