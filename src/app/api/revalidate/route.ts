@@ -19,22 +19,22 @@ export async function POST(req: NextRequest) {
 			body,
 		})
 
-		if (!isValidSignature) {
-			return new Response('Invalid Signature', { status: 401 })
-		}
-
-		if (!body?._type) {
-			return new Response('Bad Request', { status: 400 })
-		}
-
-		console.log(`Revalidating tag: ${body._type}`)
-		revalidateTag(body._type)
-		return NextResponse.json({
-			status: 200,
-			revalidated: true,
-			now: Date.now(),
-			body,
-		})
+		// if (!isValidSignature) {
+		// 	return new Response('Invalid Signature', { status: 401 })
+		// }
+		//
+		// if (!body?._type) {
+		// 	return new Response('Bad Request', { status: 400 })
+		// }
+		//
+		// console.log(`Revalidating tag: ${body._type}`)
+		// revalidateTag(body._type)
+		// return NextResponse.json({
+		// 	status: 200,
+		// 	revalidated: true,
+		// 	now: Date.now(),
+		// 	body,
+		// })
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		console.error(error)
