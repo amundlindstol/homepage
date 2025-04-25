@@ -278,14 +278,79 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/lib/sanity.query.ts
 // Variable: projectExperienceQuery
-// Query: *[_type == "projectExperience"] {  _id,  _createdAt,  title,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  content,}
+// Query: *[_type == "projectExperience"] {  title,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  customerDescription[],  projectDescription[],}
 export type ProjectExperienceQueryResult = Array<{
-	_id: string
-	_createdAt: string
 	title: string | null
 	slug: string | null
 	cover: null
-	content: null
+	customerDescription: Array<
+		| {
+				children?: Array<{
+					marks?: Array<string>
+					text?: string
+					_type: 'span'
+					_key: string
+				}>
+				style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'normal'
+				listItem?: 'bullet'
+				markDefs?: Array<{
+					href?: string
+					_type: 'link'
+					_key: string
+				}>
+				level?: number
+				_type: 'block'
+				_key: string
+		  }
+		| {
+				asset?: {
+					_ref: string
+					_type: 'reference'
+					_weak?: boolean
+					[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+				}
+				media?: unknown
+				hotspot?: SanityImageHotspot
+				crop?: SanityImageCrop
+				alt?: string
+				_type: 'image'
+				_key: string
+		  }
+	> | null
+	projectDescription: Array<
+		| {
+				children?: Array<{
+					marks?: Array<string>
+					text?: string
+					_type: 'span'
+					_key: string
+				}>
+				style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'normal'
+				listItem?: 'bullet'
+				markDefs?: Array<{
+					href?: string
+					_type: 'link'
+					_key: string
+				}>
+				level?: number
+				_type: 'block'
+				_key: string
+		  }
+		| {
+				asset?: {
+					_ref: string
+					_type: 'reference'
+					_weak?: boolean
+					[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+				}
+				media?: unknown
+				hotspot?: SanityImageHotspot
+				crop?: SanityImageCrop
+				alt?: string
+				_type: 'image'
+				_key: string
+		  }
+	> | null
 }>
 // Variable: singleProjectExperienceQuery
 // Query: *[_type == "post" && slug.current == $slug][0] {  title,  content,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },}
@@ -295,7 +360,7 @@ export type SingleProjectExperienceQueryResult = null
 import '@sanity/client'
 declare module '@sanity/client' {
 	interface SanityQueries {
-		'*[_type == "projectExperience"] {\n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  content,\n}': ProjectExperienceQueryResult
+		'*[_type == "projectExperience"] {\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  customerDescription[],\n  projectDescription[],\n}': ProjectExperienceQueryResult
 		'*[_type == "post" && slug.current == $slug][0] {\n  title,\n  content,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n}': SingleProjectExperienceQueryResult
 	}
 }

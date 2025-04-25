@@ -2,8 +2,7 @@ import { groq } from 'next-sanity'
 
 // Query schema datasets
 export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
-  _id,
-  _createdAt,
+	_id,
   title,
   "slug": slug.current,
   cover {
@@ -11,7 +10,8 @@ export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
     "lqip": asset->metadata.lqip,
     alt,
   },
-  content,
+  customerDescription[],
+  projectDescription[],
 }`
 
 export const singleProjectExperienceQuery = groq`*[_type == "post" && slug.current == $slug][0] {

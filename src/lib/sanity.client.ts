@@ -1,7 +1,6 @@
 import 'server-only'
 import { type ClientConfig, createClient, type QueryParams } from '@sanity/client'
 import { apiVersion, dataset, projectId, token } from '@/lib/sanity.api'
-import { defineLive } from 'next-sanity'
 
 const config: ClientConfig = {
 	projectId,
@@ -32,10 +31,10 @@ export async function sanityFetch<QueryResponse>({
 
 // TODO remove this?
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { sanityFetch: sanityFetchLive, SanityLive } = defineLive({
-	client: client.withConfig({
-		// Live content is currently only available on the experimental API
-		// https://www.sanity.io/docs/api-versioning
-		apiVersion: 'vX',
-	}),
-})
+// const { sanityFetch: sanityFetchLive, SanityLive } = defineLive({
+// 	client: client.withConfig({
+// 		// Live content is currently only available on the experimental API
+// 		// https://www.sanity.io/docs/api-versioning
+// 		apiVersion: 'vX',
+// 	}),
+// })
