@@ -277,9 +277,9 @@ export type AllSanitySchemaTypes =
 	| InternationalizedArrayReference
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/lib/sanity.query.ts
-// Variable: postQuery
+// Variable: projectExperienceQuery
 // Query: *[_type == "projectExperience"] {  _id,  _createdAt,  title,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  content,}
-export type PostQueryResult = Array<{
+export type ProjectExperienceQueryResult = Array<{
 	_id: string
 	_createdAt: string
 	title: string | null
@@ -287,15 +287,15 @@ export type PostQueryResult = Array<{
 	cover: null
 	content: null
 }>
-// Variable: singlePostQuery
+// Variable: singleProjectExperienceQuery
 // Query: *[_type == "post" && slug.current == $slug][0] {  title,  content,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },}
-export type SinglePostQueryResult = null
+export type SingleProjectExperienceQueryResult = null
 
 // Query TypeMap
 import '@sanity/client'
 declare module '@sanity/client' {
 	interface SanityQueries {
-		'*[_type == "projectExperience"] {\n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  content,\n}': PostQueryResult
-		'*[_type == "post" && slug.current == $slug][0] {\n  title,\n  content,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n}': SinglePostQueryResult
+		'*[_type == "projectExperience"] {\n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  content,\n}': ProjectExperienceQueryResult
+		'*[_type == "post" && slug.current == $slug][0] {\n  title,\n  content,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n}': SingleProjectExperienceQueryResult
 	}
 }

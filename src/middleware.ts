@@ -27,15 +27,15 @@ export function middleware(request: NextRequest) {
 	const locale = getLocale(request)
 	request.nextUrl.pathname = `/${locale}${pathname}`
 	// e.g. incoming request is /products
-	// The new URL is now /en-US/products
+	// The new URL is now /no/products
 	return NextResponse.redirect(request.nextUrl)
 }
 
 export const config = {
 	matcher: [
-		// only run on root (/) URL
+		// root URL
 		'/',
-		// Optional: Skip all internal paths (_next)
-		// '/((?!_next).*)',
+		// Match all paths except the ones starting with _next|studio|api|en|no
+		'/((?:_next|studio|api|en|no)(?!$|/).*)',
 	],
 }

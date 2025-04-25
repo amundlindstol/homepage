@@ -10,6 +10,15 @@ export async function POST(req: NextRequest) {
 		}>(req, process.env.NEXT_SANITY_HOOK_SECRET)
 		console.log(`Revalidate hook triggered. isValidSignature: ${isValidSignature}. body: ${JSON.stringify(body)}`)
 
+		//TODO remove
+		revalidateTag(body?._type ?? '')
+		return NextResponse.json({
+			status: 200,
+			revalidated: true,
+			now: Date.now(),
+			body,
+		})
+
 		if (!isValidSignature) {
 			return new Response('Invalid Signature', { status: 401 })
 		}

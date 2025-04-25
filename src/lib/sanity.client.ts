@@ -12,8 +12,6 @@ const config: ClientConfig = {
 	token,
 }
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-
 const client = createClient(config)
 
 export async function sanityFetch<QueryResponse>({
