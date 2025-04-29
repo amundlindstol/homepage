@@ -30,7 +30,6 @@ export async function sanityFetch<QueryResponse>({
 }
 
 // TODO remove this?
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const { sanityFetch: sanityFetchLive, SanityLive } = defineLive({
 // 	client: client.withConfig({
 // 		// Live content is currently only available on the experimental API

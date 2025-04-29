@@ -21,10 +21,11 @@ export default function ExperienceCard({
 			<h1 className="mt-5 mb-2 text-3xl font-semibold">{experience.title}</h1>
 			<p className="text-muted-foreground">{experience.customer}</p>
 			<p className="text-muted-foreground">
-				{new Date(experience.dateFrom).toLocaleDateString(lang, {
-					year: 'numeric',
-					month: 'long',
-				})}{' '}
+				{experience?.dateFrom &&
+					new Date(experience.dateFrom).toLocaleDateString(lang, {
+						year: 'numeric',
+						month: 'long',
+					})}{' '}
 				-{' '}
 				{experience?.dateTo
 					? new Date(experience.dateTo).toLocaleDateString(lang, {

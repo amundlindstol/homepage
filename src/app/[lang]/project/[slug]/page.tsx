@@ -30,6 +30,7 @@ export default async function Page({
 				</h2>
 				<Accordion
 					type="multiple"
+					/* @ts-expect-error ignore */
 					collapsible="true"
 					className="bg-card my-3 px-5"
 					defaultValue={experience?.projectRole?.map((it) => it._key)}
@@ -37,12 +38,14 @@ export default async function Page({
 					<AccordionItem value="customerDescription">
 						<AccordionTrigger>{experience.customer}</AccordionTrigger>
 						<AccordionContent>
+							{/* @ts-expect-error ignore */}
 							<PortableText value={experience.customerDescription} key={experience._id} />
 						</AccordionContent>
 					</AccordionItem>
 					<AccordionItem value="projectDescription">
 						<AccordionTrigger>{experience.title}</AccordionTrigger>
 						<AccordionContent>
+							{/* @ts-expect-error ignore */}
 							<PortableText value={experience.projectDescription} key={experience._id} />
 						</AccordionContent>
 					</AccordionItem>
@@ -52,11 +55,13 @@ export default async function Page({
 						<h2 id="roles" className="mt-4 font-semibold">
 							i18n Roller
 						</h2>
+						{/* @ts-expect-error ignore */}
 						<Accordion type="multiple" collapsible="true" className="bg-card my-3 px-5">
 							{experience?.projectRole?.map((role) => (
 								<AccordionItem value={role._key} key={role._key}>
 									<AccordionTrigger>{role.title}</AccordionTrigger>
 									<AccordionContent>
+										{/* @ts-expect-error ignore */}
 										<PortableText value={role.description} />
 									</AccordionContent>
 								</AccordionItem>
