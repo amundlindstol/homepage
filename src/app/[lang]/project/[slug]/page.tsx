@@ -1,0 +1,72 @@
+import { sanityFetch } from '@/lib/sanity.client'
+import { singleProjectExperienceQuery } from '@/lib/sanity.query'
+import { SingleProjectExperienceQueryResult } from '@/types/types'
+import { PortableText } from 'next-sanity'
+import ExperienceCard from '@/components/experience-card'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+
+export default async function Page({
+	params,
+}: Readonly<{
+	params: Promise<{ lang: 'no' | 'en' }>
+}>) {
+	const { lang } = await params
+	const experience: SingleProjectExperienceQueryResult = await sanityFetch({
+		query: singleProjectExperienceQuery,
+		qParams: await params,
+		tags: ['projectExperience'],
+	})
+
+	if (!experience) {
+		return <div className="mx-auto">Ingen erfaring funnet</div>
+	}
+
+	return (
+		<section className="mx-auto flex justify-center">
+			<article className="m-6" key={experience._id}>
+				<ExperienceCard experience={experience} lang={lang} />
+				<h2 id="about" className="mt-4 font-semibold">
+					i18n Om prosjektet
+				</h2>
+				<Accordion
+					type="multiple"
+					collapsible="true"
+					className="bg-card my-3 px-5"
+					defaultValue={experience?.projectRole?.map((it) => it._key)}
+				>
+					<AccordionItem value="customerDescription">
+						<AccordionTrigger>{experience.customer}</AccordionTrigger>
+						<AccordionContent>
+							<PortableText value={experience.customerDescription} key={experience._id} />
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="projectDescription">
+						<AccordionTrigger>{experience.title}</AccordionTrigger>
+						<AccordionContent>
+							<PortableText value={experience.projectDescription} key={experience._id} />
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
+				{experience?.projectRole?.length ? (
+					<>
+						<h2 id="roles" className="mt-4 font-semibold">
+							i18n Roller
+						</h2>
+						<Accordion type="multiple" collapsible="true" className="bg-card my-3 px-5">
+							{experience?.projectRole?.map((role) => (
+								<AccordionItem value={role._key} key={role._key}>
+									<AccordionTrigger>{role.title}</AccordionTrigger>
+									<AccordionContent>
+										<PortableText value={role.description} />
+									</AccordionContent>
+								</AccordionItem>
+							))}
+						</Accordion>
+					</>
+				) : (
+					<></>
+				)}
+			</article>
+		</section>
+	)
+}

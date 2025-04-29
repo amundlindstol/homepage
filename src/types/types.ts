@@ -155,7 +155,7 @@ export type ProjectExperience = {
 	title?: string
 	customer?: string
 	slug?: Slug
-	image?: {
+	cover?: {
 		asset?: {
 			_ref: string
 			_type: 'reference'
@@ -278,11 +278,34 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./src/lib/sanity.query.ts
 // Variable: projectExperienceQuery
-// Query: *[_type == "projectExperience"] {  title,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  customerDescription[],  projectDescription[],}
+// Query: *[_type == "projectExperience"] {	_id,  title,  customer,  dateFrom,  dateTo,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },} | order(dateFrom desc)
 export type ProjectExperienceQueryResult = Array<{
+	_id: string
 	title: string | null
+	customer: string | null
+	dateFrom: string | null
+	dateTo: string | null
 	slug: string | null
-	cover: null
+	cover: {
+		image: string | null
+		lqip: string | null
+		alt: string | null
+	} | null
+}>
+// Variable: singleProjectExperienceQuery
+// Query: *[_type == "projectExperience" && slug.current == $slug][0] {  _id,  title,  customer,  dateFrom,  dateTo,  "slug": slug.current,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },  customerDescription[],  projectDescription[],  projectRole,}
+export type SingleProjectExperienceQueryResult = {
+	_id: string
+	title: string | null
+	customer: string | null
+	dateFrom: string | null
+	dateTo: string | null
+	slug: string | null
+	cover: {
+		image: string | null
+		lqip: string | null
+		alt: string | null
+	} | null
 	customerDescription: Array<
 		| {
 				children?: Array<{
@@ -351,16 +374,19 @@ export type ProjectExperienceQueryResult = Array<{
 				_key: string
 		  }
 	> | null
-}>
-// Variable: singleProjectExperienceQuery
-// Query: *[_type == "post" && slug.current == $slug][0] {  title,  content,  cover {    "image": asset->url,    "lqip": asset->metadata.lqip,    alt,  },}
-export type SingleProjectExperienceQueryResult = null
+	projectRole: Array<{
+		title?: string
+		description?: BlockContent
+		_type: 'role'
+		_key: string
+	}> | null
+} | null
 
 // Query TypeMap
 import '@sanity/client'
 declare module '@sanity/client' {
 	interface SanityQueries {
-		'*[_type == "projectExperience"] {\n  title,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  customerDescription[],\n  projectDescription[],\n}': ProjectExperienceQueryResult
-		'*[_type == "post" && slug.current == $slug][0] {\n  title,\n  content,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n}': SingleProjectExperienceQueryResult
+		'*[_type == "projectExperience"] {\n\t_id,\n  title,\n  customer,\n  dateFrom,\n  dateTo,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n} | order(dateFrom desc)': ProjectExperienceQueryResult
+		'*[_type == "projectExperience" && slug.current == $slug][0] {\n  _id,\n  title,\n  customer,\n  dateFrom,\n  dateTo,\n  "slug": slug.current,\n  cover {\n    "image": asset->url,\n    "lqip": asset->metadata.lqip,\n    alt,\n  },\n  customerDescription[],\n  projectDescription[],\n  projectRole,\n}': SingleProjectExperienceQueryResult
 	}
 }

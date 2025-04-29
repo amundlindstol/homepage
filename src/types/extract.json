@@ -845,7 +845,7 @@
         },
         "optional": true
       },
-      "image": {
+      "cover": {
         "type": "objectAttribute",
         "value": {
           "type": "object",

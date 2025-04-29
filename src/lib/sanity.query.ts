@@ -4,6 +4,23 @@ import { groq } from 'next-sanity'
 export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
 	_id,
   title,
+  customer,
+  dateFrom,
+  dateTo,
+  "slug": slug.current,
+  cover {
+    "image": asset->url,
+    "lqip": asset->metadata.lqip,
+    alt,
+  },
+} | order(dateFrom desc)`
+
+export const singleProjectExperienceQuery = groq`*[_type == "projectExperience" && slug.current == $slug][0] {
+  _id,
+  title,
+  customer,
+  dateFrom,
+  dateTo,
   "slug": slug.current,
   cover {
     "image": asset->url,
@@ -12,14 +29,5 @@ export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
   },
   customerDescription[],
   projectDescription[],
-}`
-
-export const singleProjectExperienceQuery = groq`*[_type == "post" && slug.current == $slug][0] {
-  title,
-  content,
-  cover {
-    "image": asset->url,
-    "lqip": asset->metadata.lqip,
-    alt,
-  },
+  projectRole,
 }`

@@ -25,7 +25,7 @@ export const projectExperienceType = defineType({
 			},
 		}),
 		defineField({
-			name: 'image',
+			name: 'cover',
 			type: 'image',
 			options: {
 				hotspot: true,
@@ -79,7 +79,7 @@ export const projectExperienceType = defineType({
 		}),
 		defineField({
 			name: 'dateFrom',
-			type: 'datetime',
+			type: 'date',
 			options: {
 				documentInternationalization: {
 					exclude: true,
@@ -88,7 +88,7 @@ export const projectExperienceType = defineType({
 		}),
 		defineField({
 			name: 'dateTo',
-			type: 'datetime',
+			type: 'date',
 			options: {
 				documentInternationalization: {
 					exclude: true,
@@ -105,10 +105,23 @@ export const projectExperienceType = defineType({
 	preview: {
 		select: {
 			title: 'title',
-			media: 'image',
+			media: 'cover',
+			subtitle: 'customer',
 		},
 		prepare(selection) {
-			return { ...selection, subtitle: 'subtitle' }
+			return { ...selection, subtitle: selection.subtitle }
 		},
 	},
+	orderings: [
+		{
+			title: 'Date from',
+			name: 'dateFromDesc',
+			by: [
+				{
+					field: 'dateFrom',
+					direction: 'desc',
+				},
+			],
+		},
+	],
 })
