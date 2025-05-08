@@ -1,8 +1,6 @@
-import { sanityFetch } from '@/lib/sanity.client'
-import { projectExperienceQuery } from '@/lib/sanity.query'
-import { ProjectExperienceQueryResult } from '@/types/types'
-import ExperienceCard from '@/components/experience-card'
 import Link from 'next/link'
+import { unstable_ViewTransition as ViewTransition } from 'react'
+import Vanta from '@/components/vanta'
 
 export default async function Page({
 	params,
@@ -10,23 +8,17 @@ export default async function Page({
 	params: Promise<{ lang: 'no' | 'en' }>
 }>) {
 	const { lang } = await params
-	const projectExperiences: ProjectExperienceQueryResult = await sanityFetch({
-		query: projectExperienceQuery,
-		qParams: await params,
-		tags: ['projectExperience'],
-	})
 
 	return (
-		<section className="mx-auto grid max-w-5xl grid-cols-1 md:grid-cols-2">
-			{projectExperiences.map(async (experience) => (
-				<nav className="m-6" key={experience._id}>
-					<Link href={`${lang}/project/${experience.slug}`}>
-						<div className="hover:bg-muted rounded-lg p-6 transition duration-600 ease-in-out active:rounded-lg">
-							<ExperienceCard experience={experience} lang={lang} />
-						</div>
+		<section className="mx-auto h-full max-w-2xl flex-col" id="frontpage">
+			<nav className="h-full content-center justify-center text-center align-middle">
+				<Vanta />
+				<ViewTransition name="Projects-title">
+					<Link href={`/${lang}/project`}>
+						<h1 className="text-xl font-bold">i18n Prosjekter</h1>
 					</Link>
-				</nav>
-			))}
+				</ViewTransition>
+			</nav>
 		</section>
 	)
 }

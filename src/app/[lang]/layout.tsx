@@ -26,8 +26,8 @@ export default async function RootLayout({
 }>) {
 	const { lang } = await params
 	return (
-		<html lang={lang} className="">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+		<html lang={lang} className="h-full" id={'html'}>
+			<body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>{children}</body>
 		</html>
 	)
 }

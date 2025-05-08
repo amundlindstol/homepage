@@ -16,7 +16,7 @@ export default function ExperienceCard({
 				alt={'some image'}
 				width={600}
 				height={600}
-				className="aspect-video rounded-lg object-cover"
+				className="aspect-video w-full rounded-lg object-cover"
 			/>
 			<h1 className="mt-5 mb-2 text-3xl font-semibold">{experience.title}</h1>
 			<p className="text-muted-foreground">{experience.customer}</p>

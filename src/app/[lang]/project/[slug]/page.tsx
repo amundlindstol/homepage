@@ -22,55 +22,57 @@ export default async function Page({
 	}
 
 	return (
-		<section className="mx-auto flex justify-center">
+		<section className="bg-background mx-auto flex max-w-2xl justify-center">
 			<article className="m-6" key={experience._id}>
 				<ExperienceCard experience={experience} lang={lang} />
-				<h2 id="about" className="mt-4 font-semibold">
-					i18n Om prosjektet
-				</h2>
-				<Accordion
-					type="multiple"
-					/* @ts-expect-error ignore */
-					collapsible="true"
-					className="bg-card my-3 px-5"
-					defaultValue={experience?.projectRole?.map((it) => it._key)}
-				>
-					<AccordionItem value="customerDescription">
-						<AccordionTrigger>{experience.customer}</AccordionTrigger>
-						<AccordionContent>
+				<div className="fade-in animate-in duration-1000">
+					<h2 id="about" className="mt-4 font-semibold">
+						i18n Om prosjektet
+					</h2>
+					<Accordion
+						type="multiple"
+						/* @ts-expect-error ignore */
+						collapsible="true"
+						className="bg-card my-3 px-5"
+						defaultValue={experience?.projectRole?.map((it) => it._key)}
+					>
+						<AccordionItem value="customerDescription">
+							<AccordionTrigger>{experience.customer}</AccordionTrigger>
+							<AccordionContent>
+								{/* @ts-expect-error ignore */}
+								<PortableText value={experience.customerDescription} key={experience._id} />
+							</AccordionContent>
+						</AccordionItem>
+						<AccordionItem value="projectDescription">
+							<AccordionTrigger>{experience.title}</AccordionTrigger>
+							<AccordionContent>
+								{/* @ts-expect-error ignore */}
+								<PortableText value={experience.projectDescription} key={experience._id} />
+							</AccordionContent>
+						</AccordionItem>
+					</Accordion>
+					{experience?.projectRole?.length ? (
+						<>
+							<h2 id="roles" className="mt-4 font-semibold">
+								i18n Roller
+							</h2>
 							{/* @ts-expect-error ignore */}
-							<PortableText value={experience.customerDescription} key={experience._id} />
-						</AccordionContent>
-					</AccordionItem>
-					<AccordionItem value="projectDescription">
-						<AccordionTrigger>{experience.title}</AccordionTrigger>
-						<AccordionContent>
-							{/* @ts-expect-error ignore */}
-							<PortableText value={experience.projectDescription} key={experience._id} />
-						</AccordionContent>
-					</AccordionItem>
-				</Accordion>
-				{experience?.projectRole?.length ? (
-					<>
-						<h2 id="roles" className="mt-4 font-semibold">
-							i18n Roller
-						</h2>
-						{/* @ts-expect-error ignore */}
-						<Accordion type="multiple" collapsible="true" className="bg-card my-3 px-5">
-							{experience?.projectRole?.map((role) => (
-								<AccordionItem value={role._key} key={role._key}>
-									<AccordionTrigger>{role.title}</AccordionTrigger>
-									<AccordionContent>
-										{/* @ts-expect-error ignore */}
-										<PortableText value={role.description} />
-									</AccordionContent>
-								</AccordionItem>
-							))}
-						</Accordion>
-					</>
-				) : (
-					<></>
-				)}
+							<Accordion type="multiple" collapsible="true" className="bg-card my-3 px-5">
+								{experience?.projectRole?.map((role) => (
+									<AccordionItem value={role._key} key={role._key}>
+										<AccordionTrigger>{role.title}</AccordionTrigger>
+										<AccordionContent>
+											{/* @ts-expect-error ignore */}
+											<PortableText value={role.description} />
+										</AccordionContent>
+									</AccordionItem>
+								))}
+							</Accordion>
+						</>
+					) : (
+						<></>
+					)}
+				</div>
 			</article>
 		</section>
 	)
