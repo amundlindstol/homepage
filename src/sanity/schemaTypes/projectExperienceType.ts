@@ -1,5 +1,6 @@
 import { DocumentTextIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
+import { apiVersion } from '@/lib/sanity.api'
 
 export const projectExperienceType = defineType({
 	name: 'projectExperience',
@@ -20,8 +21,24 @@ export const projectExperienceType = defineType({
 			validation: (Rule) => Rule.required(),
 			options: {
 				source: 'title',
-				documentInternationalization: {
-					exclude: true,
+				isUnique: async (slug, context) => {
+					const { document, getClient } = context
+					if (!document) {
+						return true
+					}
+					const client = getClient({ apiVersion })
+
+					const { _id, language } = document
+					const id = _id.replace(/^drafts\./, '')
+
+					const params = {
+						draft: `drafts.${id}`,
+						published: id,
+						slug,
+						language,
+					}
+					const query = `!defined(*[!(_id in [$draft, $published]) && slug.current == $slug && language == $language][0]._id)`
+					return await client.fetch(query, params)
 				},
 			},
 		}),
