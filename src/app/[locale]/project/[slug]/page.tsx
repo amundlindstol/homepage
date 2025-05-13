@@ -4,18 +4,20 @@ import { SingleProjectExperienceQueryResult } from '@/types/types'
 import { PortableText } from 'next-sanity'
 import ExperienceCard from '@/components/experience-card'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { getTranslations } from 'next-intl/server'
 
 export default async function Page({
 	params,
 }: Readonly<{
-	params: Promise<{ lang: 'no' | 'en' }>
+	params: Promise<{ locale: 'no' | 'en' }>
 }>) {
-	const { lang } = await params
+	const { locale } = await params
 	const experience: SingleProjectExperienceQueryResult = await sanityFetch({
 		query: singleProjectExperienceQuery,
 		qParams: await params,
 		tags: ['projectExperience'],
 	})
+	const t = await getTranslations('common')
 
 	if (!experience) {
 		return <div className="mx-auto">Ingen erfaring funnet</div>
@@ -24,10 +26,10 @@ export default async function Page({
 	return (
 		<section className="bg-background mx-auto flex max-w-2xl justify-center">
 			<article className="m-6" key={experience._id}>
-				<ExperienceCard experience={experience} lang={lang} />
+				<ExperienceCard experience={experience} lang={locale} />
 				<div className="fade-in animate-in duration-1000">
 					<h2 id="about" className="mt-4 font-semibold">
-						i18n Om prosjektet
+						{t('about-project')}
 					</h2>
 					<Accordion
 						type="multiple"
@@ -54,7 +56,7 @@ export default async function Page({
 					{experience?.projectRole?.length ? (
 						<>
 							<h2 id="roles" className="mt-4 font-semibold">
-								i18n Roller
+								{t('roles')}
 							</h2>
 							{/* @ts-expect-error ignore */}
 							<Accordion type="multiple" collapsible="true" className="bg-card my-3 px-5">

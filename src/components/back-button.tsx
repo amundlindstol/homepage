@@ -1,7 +1,6 @@
 'use client'
-import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 
 export default function BackButton() {
 	const pathname = usePathname()

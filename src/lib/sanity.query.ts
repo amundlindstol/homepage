@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity'
 
 // Query schema datasets
-export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
+export const projectExperienceQuery = groq`*[_type == "projectExperience" && language == $locale] {
 	_id,
   title,
   customer,
@@ -15,7 +15,7 @@ export const projectExperienceQuery = groq`*[_type == "projectExperience"] {
   },
 } | order(dateFrom desc)`
 
-export const singleProjectExperienceQuery = groq`*[_type == "projectExperience" && slug.current == $slug][0] {
+export const singleProjectExperienceQuery = groq`*[_type == "projectExperience" && slug.current == $slug && language == $locale][0] {
   _id,
   title,
   customer,

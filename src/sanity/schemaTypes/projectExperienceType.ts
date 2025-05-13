@@ -17,6 +17,7 @@ export const projectExperienceType = defineType({
 		defineField({
 			name: 'slug',
 			type: 'slug',
+			validation: (Rule) => Rule.required(),
 			options: {
 				source: 'title',
 				documentInternationalization: {
@@ -76,23 +77,22 @@ export const projectExperienceType = defineType({
 					to: { type: 'skill' },
 				}),
 			],
+			options: {
+				aiAssist: { exclude: true }, // TODO remove
+			},
 		}),
 		defineField({
 			name: 'dateFrom',
 			type: 'date',
 			options: {
-				documentInternationalization: {
-					exclude: true,
-				},
+				aiAssist: { exclude: true }, // TODO remove
 			},
 		}),
 		defineField({
 			name: 'dateTo',
 			type: 'date',
 			options: {
-				documentInternationalization: {
-					exclude: true,
-				},
+				aiAssist: { exclude: true }, // TODO remove
 			},
 		}),
 		defineField({

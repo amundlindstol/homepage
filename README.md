@@ -1,4 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Copy data from prod to test
+```sh
+pushd src/sanity  && \
+sanity dataset export production ./production.tar.gz && \
+sanity dataset import ./production.tar.gz test --replace && \
+popd
+```
+## Copy data from test to prod
+```sh
+pushd src/sanity  && \
+sanity dataset export test ./test.tar.gz && \
+sanity dataset import ./test.tar.gz production --replace && \
+popd
+```
+
+## Remove copied dataset
+```sh
+rm ./src/sanity/*.tar.gz
+```
 
 ## Getting Started
 
@@ -6,10 +24,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 # or
 bun dev
 ```

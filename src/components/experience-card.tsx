@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 import { ProjectExperienceQueryResult } from '@/types/types'
+import { useTranslations } from 'next-intl'
 
 export default function ExperienceCard({
 	experience,
@@ -9,6 +10,8 @@ export default function ExperienceCard({
 	experience: ProjectExperienceQueryResult[0]
 	lang: 'no' | 'en'
 }>) {
+	const t = useTranslations('common')
+
 	return (
 		<ViewTransition name={`ExperienceCard-${experience._id}`}>
 			<Image
@@ -32,7 +35,7 @@ export default function ExperienceCard({
 							year: 'numeric',
 							month: 'long',
 						})
-					: 'i18n Now'}
+					: t('now')}
 			</p>
 		</ViewTransition>
 	)
