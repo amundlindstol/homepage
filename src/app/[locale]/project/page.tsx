@@ -20,7 +20,7 @@ export default async function Page({
 	const t = await getTranslations('common')
 
 	return (
-		<section className="mx-auto max-w-2xl flex-col">
+		<section className="w-full flex-col justify-self-center md:w-xl">
 			<ViewTransition name="Projects-title">
 				<h1 className="pt-6 text-center text-xl font-bold">{t('projects')}</h1>
 			</ViewTransition>
