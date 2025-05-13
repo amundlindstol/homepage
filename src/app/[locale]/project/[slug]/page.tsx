@@ -38,20 +38,26 @@ export default async function Page({
 						className="bg-card my-3 px-5"
 						defaultValue={experience?.projectRole?.map((it) => it._key)}
 					>
-						<AccordionItem value="customerDescription">
-							<AccordionTrigger>{experience.customer}</AccordionTrigger>
-							<AccordionContent>
-								{/* @ts-expect-error ignore */}
-								<PortableText value={experience.customerDescription} key={experience._id} />
-							</AccordionContent>
-						</AccordionItem>
-						<AccordionItem value="projectDescription">
-							<AccordionTrigger>{experience.title}</AccordionTrigger>
-							<AccordionContent>
-								{/* @ts-expect-error ignore */}
-								<PortableText value={experience.projectDescription} key={experience._id} />
-							</AccordionContent>
-						</AccordionItem>
+						{experience.customerDescription ? (
+							<AccordionItem value="customerDescription">
+								<AccordionTrigger>{experience.customer}</AccordionTrigger>
+								<AccordionContent>
+									<PortableText value={experience.customerDescription} key={experience._id} />
+								</AccordionContent>
+							</AccordionItem>
+						) : (
+							<></>
+						)}
+						{experience.projectDescription ? (
+							<AccordionItem value="projectDescription">
+								<AccordionTrigger>{experience.title}</AccordionTrigger>
+								<AccordionContent>
+									<PortableText value={experience.projectDescription} key={experience._id} />
+								</AccordionContent>
+							</AccordionItem>
+						) : (
+							<></>
+						)}
 					</Accordion>
 					{experience?.projectRole?.length ? (
 						<>
