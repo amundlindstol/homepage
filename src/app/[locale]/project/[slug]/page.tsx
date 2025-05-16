@@ -25,7 +25,7 @@ export default async function Page({
 
 	return (
 		<section className="bg-background flex justify-center">
-			<article className="m-6 w-full md:w-xl" key={experience._id}>
+			<article className="m-6 w-full pt-6 md:w-xl" key={experience._id}>
 				<ExperienceCard experience={experience} lang={locale} />
 				<div className="fade-in animate-in duration-1000">
 					<h2 id="about" className="mt-4 font-semibold">

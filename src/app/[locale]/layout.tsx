@@ -29,7 +29,10 @@ export default async function RootLayout({
 	return (
 		<NextIntlClientProvider>
 			<html lang={locale} className="h-full" id={'html'}>
-				<body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>{children}</body>
+				<body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+					<Header locale={locale} />
+					{children}
+				</body>
 			</html>
 		</NextIntlClientProvider>
 	)
