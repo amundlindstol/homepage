@@ -1,6 +1,5 @@
 import { Link } from '@/i18n/navigation'
 import { unstable_ViewTransition as ViewTransition } from 'react'
-import Vanta from '@/components/vanta'
 import { getTranslations } from 'next-intl/server'
 
 export default async function Page({
@@ -13,7 +12,6 @@ export default async function Page({
 	return (
 		<section className="mx-auto h-full max-w-2xl flex-col" id="frontpage">
 			<nav className="h-full content-center justify-center text-center align-middle">
-				<Vanta />
 				<ViewTransition name="Projects-title">
 					<Link href={`/project`}>
 						<h1 className="text-xl font-bold">{t('projects')}</h1>
